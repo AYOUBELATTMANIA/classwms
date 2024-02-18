@@ -1,3 +1,4 @@
+
 function varargout = classwms(varargin)
 % CLASSWMS MATLAB code for classwms.fig
 %      CLASSWMS, by itself, creates a new CLASSWMS or raises the existing
@@ -22,7 +23,7 @@ function varargout = classwms(varargin)
 
 % Edit the above text to modify the response to help classwms
 
-% Last Modified by GUIDE v2.5 12-Feb-2024 14:06:03
+% Last Modified by GUIDE v2.5 18-Feb-2024 14:03:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -77,14 +78,20 @@ function axes6_CreateFcn(hObject, eventdata, handles)
 % Hint: place code in OpeningFcn to populate axes6
 %%%% Plot global map on the main window of the tool just after runing the
 %%%% main code
-global directory
+%%% add gsw toolbox path
+selpath = uigetdir('','Add GSW toolbox path');
+addpath(genpath(selpath))
+msg=sprintf('%s direcoty has been added successfully', selpath);
+%%%
 axesm('mercator','MapLatLimit',[-90 90],'MapLonLimit',[-180 180],...
 'Frame','on','Grid','on','MeridianLabel','on','ParallelLabel','on',...
 'MLabelLocation',[-180:40:180],'PLabelLocation',[-90:20:90])
 axis off; 
 geoshow('landareas.shp','FaceColor',[ 0.5 0.3 0.1 ])
 daspect auto
-directory = fileparts(fileparts(mfilename('fullpath')));
+dlg = msgbox(msg);
+
+
 
 
 % --------------------------------------------------------------------
@@ -93,14 +100,11 @@ function openfile_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%%%%%% import the data ascii file that the user want to classify
-% global directory
-% dire=sprintf('%s\\%s',directory,'data');
-% cd (dire) 
+%%%%%% import the data ascii file that the user want to classify 
 global dep tmp sal lon lat
 try
-FileName=uigetfile('data_to_classify.txt');
-file= uiimport(FileName,'rt');
+[stmfile, stmpath]=uigetfile('data_to_classify.txt');
+file= uiimport(fullfile(stmpath, stmfile),'rt');
 lon=file.longitude;  lat=file.latitude;
 dep=file.depth;  tmp=file.temperature;
 sal=file.salinity;
@@ -142,15 +146,18 @@ set(gcf,'Color','w')
 grid on
 %%%%%%%% plot the theta-s diagram
 figure('Name','Tempearture and Salinity diagram')
-theta_sdiag(tmp,sal,'color',dep,'caxis',[min(dep) max(dep)],...
-    'trange',[min(tmp)-0.1 max(tmp)+0.1],'srange',[min(sal)-0.1 max(sal)+0.1]);
+SAL=gsw_SA_from_SP(sal,dep,nanmean(lon),nanmean(lat));
+TMP=gsw_CT_from_t(SAL,tmp,dep);
+gsw_SA_CT_plot(SAL,TMP)
 set(gcf,'Color','w')
-xlabel ('Salinity [psu]','interpreter','latex')
-ylabel ('Temperature [$$^{\circ} C$$]','interpreter','latex')
+xlabel ('Absolute Salinity [g/kg]','interpreter','latex')
+ylabel ('Conservative Temperature [$$^{\circ} C$$]','interpreter','latex')
+title('');
 %%%%%%%%%% plot the sigma-pi diagram
 figure('Name','Sigma Pi diagram');
-sigma=sw_dens0(sal,tmp)-1000; %%% potential density
-spi=sw_pspi(sal,tmp,dep,0);%%% potential spicity
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+sigma=gsw_sigma0(SAL,TMP); %%% potential density
+spi=gsw_pspi(SAL,TMP,0);%%% potential spicity
 hc=scatter(spi,sigma,16,dep,'o','fill');
 set(hc,'markeredgecolor','none');
 cmap=jet(10); colormap(cmap); h=colorbar; title(h,'Depth [m]','interpreter','latex')
@@ -205,8 +212,6 @@ ButtonName = questdlg( ...
             ylabel ('Temperature [$$^{\circ} C$$]','interpreter','latex')
             set(gcf,'Color','w')
             grid on
-%             figure
-%             set(gcf,'Color','w')
           catch exception 
               f = warndlg('can not perform kmeans classification','Warning');
               return
@@ -457,10 +462,8 @@ function Labeling_ClickedCallback(hObject, eventdata, handles)
 global S T indice name SAL TMP DEP LON LAT lon lat
 S=[]; T=[]; indice=[]; name={}; 
 try
-% dire=sprintf('%s\\%s',directory,'data');
-% cd (dire) 
-FileName=uigetfile('database_not_labeled.txt');
-file= uiimport(FileName,'rt');
+[stmfile, stmpath]=uigetfile('database_not_labeled.txt');
+file= uiimport(fullfile(stmpath, stmfile),'rt');
 LON=file.longitude;  LAT=file.latitude;
 DEP=file.depth;  TMP=file.temperature; SAL=file.salinity;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -526,13 +529,14 @@ function KNN_ClickedCallback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %%%% apply the whole process of knn classification
-global tmp sal  dep  
+global tmp sal  dep  LON LAT
 try
-%%%%% import the labeled database file 
-% dire=sprintf('%s\\%s',directory,'data');
-% cd (dire) 
-FileName=uigetfile('database_labeled.txt');
-A=readtable(FileName); A=table2cell(A);
+%%%%% import the labeled database file
+[stmfile, stmpath]=uigetfile('database_labeled.txt');
+% file= uiimport(fullfile(stmpath, stmfile),'rt');
+% FileName=uigetfile('database_labeled.txt');
+fullfile(stmpath, stmfile)
+A=readtable(fullfile(stmpath, stmfile)); A=table2cell(A);
 spi=A(:,1); rho=A(:,2); WM=A(:,3); 
 spi=cell2mat(spi);rho=cell2mat(rho);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -559,8 +563,12 @@ mdl = fitcknn(X,WM,'NumNeighbors',K);
 %%% compute accuracy
 accuracy =1- resubLoss(mdl);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-sigma=sw_dens0(sal,tmp)-1000; 
-spi=sw_pspi(sal,tmp,dep,0);
+SAL=gsw_SA_from_SP(sal,dep,mean(LON),mean(LAT));
+TMP=gsw_CT_from_t(SAL,tmp,dep);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+sigma=gsw_sigma0(SAL,TMP); %%% potential density
+spi=gsw_pspi(SAL,TMP,0);%%% potential spicity
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 x= [spi sigma];
 %%% classify training data using trained classifier
 predictedWMS = resubPredict(mdl);
@@ -595,3 +603,6 @@ function uipushtool9_ClickedCallback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 msg=sprintf('Please contact ayoub-bel17@hotmail.com for support.');
 msgbox(msg,'HELP');
+
+
+

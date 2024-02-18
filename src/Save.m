@@ -1,6 +1,5 @@
 function Save(src,event)
-global S T indice name DEP 
-%%%%% save the theta-s selected data on the sigma-pi diagram
+global S T indice name DEP LON LAT 
 try
 if isempty(S)
    warndlg('Select first','Warning');
@@ -12,8 +11,12 @@ if iscell(S)
     indice=cell2mat(indice); 
 end
 baseFileName_1 = sprintf('%s_sigma_pi.txt',name);
-sigma=sw_dens0(S,T)-1000; %%% compute potential density 
-spi=sw_pspi(S,T,DEP(indice),0); %%% compute potential spicity
+%%%%%%%%%
+SAL=gsw_SA_from_SP(S,DEP(indice),mean(LON),mean(LAT));
+TMP=gsw_CT_from_t(SAL,T,DEP(indice));
+%%%%%%%%%
+sigma=gsw_sigma0(SAL,TMP); %%% potential density
+spi=gsw_pspi(SAL,TMP,0);%%% potential spicity
 wm=repmat(name,length(spi),1);
 Tab = table(round(spi,15),round(sigma,15),wm, ...
     'VariableNames', { 'PI', 'SIGMA','NAME'} );
