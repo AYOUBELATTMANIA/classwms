@@ -1,6 +1,6 @@
-# CLASSWS Community Contribution Guidelines
+# CLASSWMS Community Contribution Guidelines
 
-Welcome to the CLASSWS project! We appreciate your interest in contributing to our MATLAB GUI project. To ensure a smooth and productive collaboration, please review the following guidelines before making contributions.
+Welcome to the CLASSWMS project! We appreciate your interest in contributing to our MATLAB GUI project. To ensure a smooth and productive collaboration, please review the following guidelines before making contributions.
 
 ## How to Contribute
 
@@ -36,4 +36,4 @@ For any further questions or discussions, feel free to contact [the first author
 
 ## Acknowledgments
 
-Thank you for considering contributing to CLASSWS! Your contributions help improve the project for everyone.
+Thank you for considering contributing to CLASSWMS! Your contributions help improve the project for everyone.
