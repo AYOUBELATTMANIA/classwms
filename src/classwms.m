@@ -1,4 +1,3 @@
-
 function varargout = classwms(varargin)
 % CLASSWMS MATLAB code for classwms.fig
 %      CLASSWMS, by itself, creates a new CLASSWMS or raises the existing
