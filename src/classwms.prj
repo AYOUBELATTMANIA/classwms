@@ -1,15 +1,20 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="58463670" file="C:\Users\PC-DHOC\Documents\classwms\src\classwms.prj" location="C:\Users\PC-DHOC\Documents\classwms\src" name="classwms" preferred-package-location="C:\Users\PC-DHOC\Documents\classwms\src\classwms\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="C:\Users\PC-DHOC\Documents\classwms\src\classwms.prj" location="C:\Users\PC-DHOC\Documents\classwms\src" name="classwms" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>classwms</param.appname>
-    <param.icon />
-    <param.icons />
+    <param.icon>${PROJECT_ROOT}\classwms_resources\icon.ico</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\classwms_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\classwms_resources\icon_32.png</file>
+      <file>${PROJECT_ROOT}\classwms_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\classwms_resources\icon_16.png</file>
+    </param.icons>
     <param.version>1.0</param.version>
-    <param.authnamewatermark />
-    <param.email />
+    <param.authnamewatermark>Ayoub BELATTMANIA &amp; al</param.authnamewatermark>
+    <param.email>ayoub-bel17@hotmail.com</param.email>
     <param.company />
     <param.summary />
-    <param.description />
-    <param.screenshot />
+    <param.description>CLASSWMS is a Graphical User Interface developed under MATLAB, to classify water masses using clustering analysis and KNN classifier, according to the process presented by (Ayoub BELATTMANIA et al 2023).</param.description>
+    <param.screenshot>${PROJECT_ROOT}\LOGO.JPG</param.screenshot>
     <param.guid />
     <param.installpath.string>\classwms\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
@@ -27,10 +32,10 @@
     <param.web.mcr>true</param.web.mcr>
     <param.package.mcr>false</param.package.mcr>
     <param.no.mcr>false</param.no.mcr>
-    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.web.mcr.name>CLASSWMS</param.web.mcr.name>
     <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
     <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
-    <param.windows.command.prompt>false</param.windows.command.prompt>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
     <param.create.log>false</param.create.log>
     <param.log.file />
     <param.native.matlab>false</param.native.matlab>
@@ -41,17 +46,13 @@
 	 classwms varargin 
  Input Arguments 
 	 -?  print help on how to use the application 
-	 varargin  input arguments</param.help.text>
+	 varargin  input arguments 
+ Description 
+ 	 CLASSWMS is a Graphical User Interface developed under MATLAB, to classify water masses using clustering analysis and KNN classifier, according to the process presented by (Ayoub BELATTMANIA et al 2023).</param.help.text>
     <unset>
-      <param.icon />
-      <param.icons />
       <param.version />
-      <param.authnamewatermark />
-      <param.email />
       <param.company />
       <param.summary />
-      <param.description />
-      <param.screenshot />
       <param.guid />
       <param.installpath.string />
       <param.installpath.combo />
@@ -69,9 +70,9 @@
       <param.web.mcr />
       <param.package.mcr />
       <param.no.mcr />
-      <param.web.mcr.name />
       <param.package.mcr.name />
       <param.no.mcr.name />
+      <param.windows.command.prompt />
       <param.create.log />
       <param.log.file />
       <param.native.matlab />
@@ -420,39 +421,6 @@
     </fileset.resources>
     <fileset.package />
     <fileset.depfun>
-      <file>C:\gsw\thermodynamics_from_t\gsw_alpha_wrt_CT_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_alpha_wrt_pt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_alpha_wrt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_beta_const_CT_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_beta_const_pt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_beta_const_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_chem_potential_relative_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_chem_potential_salt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_chem_potential_water_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_cp_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_CT_first_derivatives_wrt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_deltaSA_from_rho_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_dilution_coefficient_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_dynamic_enthalpy_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_enthalpy_first_derivatives_wrt_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_enthalpy_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_Helmholtz_energy_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_internal_energy_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_isochoric_heat_cap_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_kappa_const_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_kappa_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_osmotic_coefficient_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_osmotic_pressure_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_pot_rho_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_rho_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_SA_from_rho_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_sigma0_pt0_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_sound_speed_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_specvol_anom_standard_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_specvol_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_t_deriv_chem_potential_water_t_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_t_from_rho_exact.m</file>
-      <file>C:\gsw\thermodynamics_from_t\gsw_t_maxdensity_exact.m</file>
       <file>C:\Users\PC-DHOC\Desktop\projet_lagune\Modelisation\deploiement casa courant +houle 151123\imos-toolbox-master\imos-toolbox-master\Util\nanmean.m</file>
       <file>${PROJECT_ROOT}\Cancel.m</file>
       <file>${PROJECT_ROOT}\classwms.fig</file>
