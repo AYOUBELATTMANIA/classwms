@@ -562,7 +562,7 @@ mdl = fitcknn(X,WM,'NumNeighbors',K);
 %%% compute accuracy
 accuracy =1- resubLoss(mdl);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-SAL=gsw_SA_from_SP(sal,dep,nanmean(lon),nanmean(lat));
+SAL=gsw_SA_from_SP(sal,dep,nanmean(lon),nmean(lat));
 TMP=gsw_CT_from_t(SAL,tmp,dep);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 sigma=gsw_sigma0(SAL,TMP); %%% potential density
