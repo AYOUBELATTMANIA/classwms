@@ -8,7 +8,6 @@ CLASSWMS is a Graphical User Interface developed under MATLAB, to classify water
 
 > To experience its full potential and functionality, users are encouraged to verify that their system aligns with the aforementioned specifications.
 
-> [!TIP]
 > To use the tool, individuals can obtain the required files from [GitHub](https://github.com/AYOUBELATTMANIA/classwms.git).
 > This pertains specifically to the source code, the standalone application and accompanying support materials, encompassing:
 - A documentation file (**help_doc.pdf**) furnishing an overview of the tool, its functionalities and instances of usage. 
