@@ -4,7 +4,7 @@ CLASSWMS is a Graphical User Interface developed under MATLAB, to classify water
 > [!IMPORTANT]
 > CLASSWMS has been meticulously crafted and rigorously tested to operate seamlessly across Windows versions 7, 8, 10, and 11, all in their 64-bit versions. 
 > The utilization of the classwms source code mandates the presence of MATLAB R2021a version or higher. 
-> The target system running the standalone application (exectubale file)  does not require a licensed copy of MATLAB. Nevertless it requires the MATLAB Runtime installation [R2021a](https://www.mathworks.com/products/compiler/matlab-runtime.html) to run the application.
+> The target system running the standalone application (executable file)  does not require a licensed copy of MATLAB. Nevertheless it requires the MATLAB Runtime installation [R2021a](https://www.mathworks.com/products/compiler/matlab-runtime.html) to run the application.
 
 > To experience its full potential and functionality, users are encouraged to verify that their system aligns with the aformentioned specifications.
 
